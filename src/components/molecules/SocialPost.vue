@@ -22,7 +22,8 @@ const props = defineProps({
   username: String,
   userId: Number,
   avatarSrc: String,
-  post: String
+  post: String,
+  comments: Array
 });
 
 onMounted( () => {
