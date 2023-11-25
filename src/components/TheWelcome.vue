@@ -28,6 +28,8 @@ const posts = reactive([
       "great post",
       "amazing post"
     ],
+    likes: 2,
+    retweets: 1,
     tags: [
       "tag 1"
     ]
@@ -37,6 +39,8 @@ const posts = reactive([
     avatar: "https://i.pravatar.cc/40",
     post: "This is my second post",
     comments: [],
+    likes: 3,
+    retweets: 1,
     tags: [
       "tag 1",
       "tag 2"
