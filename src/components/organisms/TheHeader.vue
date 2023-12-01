@@ -3,8 +3,7 @@
         <div v-html="logo" ></div>
         <h1>Companion app</h1>
         <a href="#">
-            Welcome 
-            <span v-text="username"></span>
+            Welcome {{ username }}
         </a>
     </header>
 </template>
