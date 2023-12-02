@@ -1,43 +1,50 @@
 <template>
   <div
     class="SocialPost" 
-    :class="{ SocialPost__selected: selected}" 
-    @click="onSelectedClick" 
+    :class="{ SocialPost__selected: selected}"
   >
     <div class="header">
       <img class="avatar" :src="avatarSrc" />
       <div class="name">{{ username }}</div>
       <div class="userId">{{ userId }}</div>
+      <IconDelete />
     </div>
     <div class="post" v-text="post"></div>
-    <button
-      v-show="hasComments"
-      @click="onShowCommentClick"
-    >
-      Show Comments
-    </button>
     <SocialPostComments
       v-if="showComments" 
       :comments="comments"
     />
-    <div class="interactions">Interactions: {{ interactions }}</div>
+    
+    <div class="interactions">
+      <IconHeart />
+      {{ interactions }}
+      <IconCommunity />
+      {{ commentsNumber }}
+      <button
+        v-show="hasComments"
+        @click="onShowCommentClick"
+      >
+        Show Comments
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup >
 import { onMounted, ref, computed } from 'vue';
 import SocialPostComments from './SocialPostComments.vue';
-
-const selected = ref(false); 
-const onSelectedClick = () => { 
-  selected.value = !selected.value; 
-} 
+import IconHeart from '../icons/IconHeart.vue';
+import IconCommunity from '../icons/IconCommunity.vue';
+import IconDelete from '../icons/IconDelete.vue';
 
 const showComments = ref(false); 
 const onShowCommentClick = () => { 
   console.log("Showing comments");
   showComments.value = !showComments.value; 
-} 
+}
+const commentsNumber = computed( () => {
+  return props.comments.length;
+});
 const props = defineProps({
   username: String,
   userId: Number,
@@ -65,6 +72,7 @@ onMounted( () => {
 
 <style lang="scss">
 .SocialPost{
+  margin-bottom:16px;
   &__selected{
     border: white solid 1px;
   }
@@ -83,8 +91,15 @@ onMounted( () => {
     color: white;
   }
   .interactions {
+    display: flex;
     font-weight: bold;
     margin-top: 8px;
+    gap:8px;
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--color-border);
+    }
   }
 }
 </style>
