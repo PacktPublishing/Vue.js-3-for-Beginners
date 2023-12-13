@@ -10,8 +10,6 @@
   
 <script setup >
 import IconDeleteVue from '../icons/IconDelete.vue';
-
-IconDeleteVue
 const props = defineProps({
   comments: Array
 })

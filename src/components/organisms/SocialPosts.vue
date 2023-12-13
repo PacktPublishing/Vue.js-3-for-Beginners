@@ -1,6 +1,6 @@
 <template>
   <SocialPost
-    v-for="post in posts"
+    v-for="(post, index) in posts"
     :username="post.username"
     :userId="post.userId"
     :avatarSrc="post.avatar"
@@ -9,12 +9,17 @@
     :likes="post.likes"
     :retweets="post.retweets"
     :key="post.userId"
+    @delete="onDelete(index)"
   ></SocialPost>
 </template>
   
-  <script setup>
+<script setup>
   import { reactive } from 'vue';
   import SocialPost from '../molecules/SocialPost.vue'
+
+  const onDelete = ( postIndex ) => {
+    posts.splice(postIndex, 1);
+  }
   
   const posts = reactive([
     { username: "Username one",

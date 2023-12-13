@@ -7,12 +7,13 @@
       <img class="avatar" :src="avatarSrc" />
       <div class="name">{{ username }}</div>
       <div class="userId">{{ userId }}</div>
-      <IconDelete />
+      <IconDelete @click="onDeleteClick" />
     </div>
     <div class="post" v-text="post"></div>
     <SocialPostComments
       v-if="showComments" 
       :comments="comments"
+      @delete="onDeleted"
     />
     
     <div class="interactions">
@@ -42,6 +43,8 @@ const onShowCommentClick = () => {
   console.log("Showing comments");
   showComments.value = !showComments.value; 
 }
+
+
 const commentsNumber = computed( () => {
   return props.comments.length;
 });
@@ -68,6 +71,11 @@ const interactions = computed( ()=> {
 onMounted( () => {
   console.log(props.username);
 });
+
+const emit = defineEmits(['delete']);
+const onDeleteClick = () => {
+  emit('delete', 0);
+}
 </script>
 
 <style lang="scss">
@@ -95,11 +103,12 @@ onMounted( () => {
     font-weight: bold;
     margin-top: 8px;
     gap:8px;
-    svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--color-border);
-    }
+  }
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--color-input-soft);
+    cursor:pointer;
   }
 }
 </style>

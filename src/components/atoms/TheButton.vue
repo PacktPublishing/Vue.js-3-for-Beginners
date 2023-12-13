@@ -1,22 +1,30 @@
 <template>
     <button
-        :class="[size, theme]"
+        :class="theme"
     >
      {{  value  }}
     </button>
 </template>
-<script>
+<script setup>
 defineProps({
+    value: {
+        type: [String, Number],
+        required: true
+    },
+    width: {
+        type: String,
+        default: "100px"
+    },
+    theme: {
+        type: String,
+        default: "light",
+        validator: (value) => ["light", "dark"].includes(value)
+    }
 })
 </script>
 <style scoped>
-.normal {
-    padding: 8px 16px;
-    font-size: 16px;
-}
-.large {
-    padding: 16px 32px;
-    font-size: 24px;
+button {
+    width: v-bind(width);
 }
 .light {
     background-color: #1DA1F2;
