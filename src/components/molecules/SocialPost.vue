@@ -21,12 +21,13 @@
       {{ interactions }}
       <IconCommunity />
       {{ commentsNumber }}
-      <button
+      <TheButton
         v-show="hasComments"
         @click="onShowCommentClick"
-      >
-        Show Comments
-      </button>
+        value="Show comment"
+        width="auto"
+        theme="dark"
+      />
     </div>
   </div>
 </template>
@@ -37,6 +38,7 @@ import SocialPostComments from './SocialPostComments.vue';
 import IconHeart from '../icons/IconHeart.vue';
 import IconCommunity from '../icons/IconCommunity.vue';
 import IconDelete from '../icons/IconDelete.vue';
+import TheButton from '../atoms/TheButton.vue';
 
 const showComments = ref(false); 
 const onShowCommentClick = () => { 
@@ -45,9 +47,6 @@ const onShowCommentClick = () => {
 }
 
 
-const commentsNumber = computed( () => {
-  return props.comments.length;
-});
 const props = defineProps({
   username: String,
   userId: Number,
@@ -58,8 +57,8 @@ const props = defineProps({
   retweets: Number
 });
 
-const hasComments = computed(() => {
-  return props.comments.length > 0;
+const commentsNumber = computed( () => {
+  return props.comments.length;
 });
 
 const interactions = computed( ()=> {
@@ -74,7 +73,7 @@ onMounted( () => {
 
 const emit = defineEmits(['delete']);
 const onDeleteClick = () => {
-  emit('delete', 0);
+  emit('delete');
 }
 </script>
 
@@ -91,6 +90,8 @@ const onDeleteClick = () => {
   }
   .avatar {
     border-radius: 50%;
+    width: 40px;
+    height: 40px;;
     margin-right: 12px;
   }
   .name {

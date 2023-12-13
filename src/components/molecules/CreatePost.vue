@@ -2,10 +2,12 @@
     <form>
         <h2>Create a Post</h2>
         <textarea rows="4" cols="20"></textarea>
-        <button>Post</button>
+        <TheButton value="post" />
     </form>
 </template>
-<script></script>
+<script setup>
+import TheButton from '../atoms/TheButton.vue';
+</script>
 <style scoped>
 form {
     display: flex;

@@ -1,15 +1,16 @@
 <template>
     <aside>
         <h2>Sidebar</h2>
-        <button>Create Post</button>
+        <TheButton value="Create post" />
         <div>
             Current time: {{currentTime}}
         </div>
-        <button @click.once="onUpdateTimeClick">Update Time</button>
+        <TheButton @click.once="onUpdateTimeClick" value="Update time" />
     </aside>
 </template>
 <script setup>
 import { ref } from 'vue';
+import TheButton  from '../atoms/TheButton.vue'
 const currentTime = ref(new Date().toLocaleTimeString());
 const onUpdateTimeClick = () => {
     currentTime.value = new Date().toLocaleTimeString();

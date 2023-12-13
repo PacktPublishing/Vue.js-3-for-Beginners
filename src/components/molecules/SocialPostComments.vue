@@ -3,13 +3,12 @@
       <p>Comments:</p>
       <div v-for="(comment, index) in comments" class="comment">
         <p>{{ comment }}</p>
-        <IconDeleteVue />
       </div>
   </div>
 </template>
   
 <script setup >
-import IconDeleteVue from '../icons/IconDelete.vue';
+import { reactive } from 'vue';
 const props = defineProps({
   comments: Array
 })
