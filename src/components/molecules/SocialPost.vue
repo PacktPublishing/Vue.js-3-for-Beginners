@@ -6,23 +6,23 @@
     <div class="header">
       <img class="avatar" :src="avatarSrc" />
       <div class="name">{{ username }}</div>
-      <div class="userId">{{ userId }}</div>
       <IconDelete @click="onDeleteClick" />
     </div>
     <div class="post" v-text="post"></div>
-    <SocialPostComments
-      v-if="showComments" 
-      :comments="comments"
-      @delete="onDeleted"
-    />
+    <Suspense v-if="showComments" >
+      <SocialPostComments
+        :post-id="id"
+        @delete="onDeleted"
+      />
+      <template #fallback>
+        fetching comments...
+      </template>
+    </Suspense>
     
     <div class="interactions">
       <IconHeart />
-      {{ interactions }}
-      <IconCommunity />
-      {{ commentsNumber }}
+      {{ likes }}
       <TheButton
-        v-show="hasComments"
         @click="onShowCommentClick"
         value="Show comment"
         width="auto"
@@ -36,7 +36,6 @@
 import { onMounted, ref, computed } from 'vue';
 import SocialPostComments from './SocialPostComments.vue';
 import IconHeart from '../icons/IconHeart.vue';
-import IconCommunity from '../icons/IconCommunity.vue';
 import IconDelete from '../icons/IconDelete.vue';
 import TheButton from '../atoms/TheButton.vue';
 
@@ -46,25 +45,12 @@ const onShowCommentClick = () => {
   showComments.value = !showComments.value; 
 }
 
-
 const props = defineProps({
   username: String,
-  userId: Number,
+  id: Number,
   avatarSrc: String,
   post: String,
-  comments: Array,
-  likes: Number,
-  retweets: Number
-});
-
-const commentsNumber = computed( () => {
-  return props.comments.length;
-});
-
-const interactions = computed( ()=> {
-  const comments = props.comments.length;
-  console.log(comments, props.likes, props.retweets);
-  return comments + props.likes + props.retweets;
+  likes: Number
 });
 
 onMounted( () => {

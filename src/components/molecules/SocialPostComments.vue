@@ -1,17 +1,38 @@
 <template>
   <div class="SocialPostComments">
+    <template v-if="comments.length === 0">
+      <p>There are no comments for this post!</p>
+    </template>
+    <template v-else>
       <p>Comments:</p>
-      <div v-for="(comment, index) in comments" class="comment">
-        <p>{{ comment }}</p>
+      <div v-for="{owner, message} in comments" class="comment">
+        <p>{{ owner.firstName }}: <strong>{{ message }}</strong></p>
       </div>
+    </template>
   </div>
 </template>
   
 <script setup >
 import { reactive } from 'vue';
 const props = defineProps({
-  comments: Array
-})
+  postId: String
+});
+
+const comments = reactive([]);
+const fetchComments = (postId) => {
+  const baseUrl = "https://dummyapi.io/data/v1";
+  return fetch(`${baseUrl}/post/${postId}/comment?limit=5`,
+  {
+    "headers": {
+      "app-id": "657a3106698992f50c0a5885"
+    }
+  })
+    .then( response => response.json())
+    .then( result => {
+      Object.assign(comments, result.data);
+    })
+};
+await fetchComments(props.postId);
 </script>
   
 <style lang="scss">

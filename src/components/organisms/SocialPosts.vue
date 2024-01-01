@@ -1,54 +1,48 @@
 <template>
   <SocialPost
     v-for="(post, index) in posts"
-    :username="post.username"
-    :userId="post.userId"
-    :avatarSrc="post.avatar"
-    :post="post.post"
-    :comments="post.comments"
+    :username="post.owner.firstName"
+    :id="post.id"
+    :avatarSrc="post.image"
+    :post="post.text"
     :likes="post.likes"
-    :retweets="post.retweets"
-    :key="post.userId"
+    :key="post.id"
     @delete="onDelete(index)"
   ></SocialPost>
 </template>
   
 <script setup>
-  import { reactive } from 'vue';
+  import { reactive, ref, watch } from 'vue';
   import SocialPost from '../molecules/SocialPost.vue'
 
   const onDelete = ( postIndex ) => {
     posts.splice(postIndex, 1);
   }
   
-  const posts = reactive([
-    { username: "Username one",
-      userId: "usernameId1",
-      avatar: "https://i.pravatar.cc/40",
-      post: "This is my post",
-      comments: [
-        "great post",
-        "amazing post"
-      ],
-      likes: 2,
-      retweets: 1,
-      tags: [
-        "tag 1"
-      ]
-    },
-    { username: "Username two",
-      userId: "usernameId2",
-      avatar: "https://i.pravatar.cc/40",
-      post: "This is my second post",
-      comments: [],
-      likes: 3,
-      retweets: 1,
-      tags: [
-        "tag 1",
-        "tag 2"
-      ]
+  const posts = reactive([]);
+  const page = ref(0);
+  watch(
+    posts,
+    (newValue) => {
+      if( newValue.length <= 3 ) {
+        page.value++;
+        fetchPosts(page.value);
+      }
     }
-  ]);
+  )
+  const fetchPosts = (page = 0) => {
+    const baseUrl = "https://dummyapi.io/data/v1";
+    fetch(`${baseUrl}/post?limit=5&page=${page}`, {
+      "headers": {
+        "app-id": "657a3106698992f50c0a5885"
+      }
+    })
+      .then( response => response.json())
+      .then( result => {
+        posts.push(...result.data);
+      })
+  }
+  fetchPosts();
   
   </script>
   
