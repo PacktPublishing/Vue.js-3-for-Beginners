@@ -1,7 +1,6 @@
 <template>
   <div
     class="SocialPost" 
-    :class="{ SocialPost__selected: selected}"
   >
     <div class="header">
       <img class="avatar" :src="avatarSrc" />
@@ -67,9 +66,6 @@ const onDeleteClick = () => {
 <style lang="scss">
 .SocialPost{
   margin-bottom:16px;
-  &__selected{
-    border: white solid 1px;
-  }
   .header {
     display: flex;
     align-items: center;

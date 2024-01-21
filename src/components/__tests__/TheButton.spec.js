@@ -13,4 +13,13 @@ describe('TheButton.vue', () => {
             expect(wrapper.classes()).toContain('light');
         });
     });
+
+    it('when theme props is set, it modify its style', () => {
+        const wrapper = mount(component, {
+            props: {
+                theme: 'dark'
+            }
+        });
+        expect(wrapper.classes()).toContain('dark');
+    });
 });
