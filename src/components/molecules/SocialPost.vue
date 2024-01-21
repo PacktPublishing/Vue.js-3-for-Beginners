@@ -6,7 +6,7 @@
     <div class="header">
       <img class="avatar" :src="avatarSrc" />
       <div class="name">{{ username }}</div>
-      <IconDelete @click="onDeleteClick" />
+      <IconDelete @click="onDeleteClick" role="button" />
     </div>
     <div class="post" v-text="post"></div>
     <Suspense v-if="showComments" >
@@ -27,6 +27,7 @@
         value="Show comment"
         width="auto"
         theme="dark"
+        data-cy="showCommentButton"
       />
     </div>
   </div>
