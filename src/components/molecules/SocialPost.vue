@@ -23,11 +23,10 @@
       {{ likes }}
       <TheButton
         @click="onShowCommentClick"
-        value="Show comment"
         width="auto"
         theme="dark"
         data-cy="showCommentButton"
-      />
+      >Show comment</TheButton>
     </div>
   </div>
 </template>
@@ -47,7 +46,7 @@ const onShowCommentClick = () => {
 
 const props = defineProps({
   username: String,
-  id: Number,
+  id: String,
   avatarSrc: String,
   post: String,
   likes: Number
