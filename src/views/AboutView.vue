@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import StaticTemplate from '../components/templates/staticTemplate.vue'
+import StaticTemplate from '../components/templates/StaticTemplate.vue'
 </script>
 
 <style>
