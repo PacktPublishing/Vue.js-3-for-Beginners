@@ -3,7 +3,7 @@
     class="SocialPost" 
   >
     <div class="header">
-      <img class="avatar" :src="avatarSrc" />
+      <img class="avatar" :src="avatarSrc" @click="navigateToUser" />
       <div class="name">{{ username }}</div>
       <IconDelete @click="onDeleteClick" role="button" />
     </div>
@@ -37,6 +37,7 @@ import SocialPostComments from './SocialPostComments.vue';
 import IconHeart from '../icons/IconHeart.vue';
 import IconDelete from '../icons/IconDelete.vue';
 import TheButton from '../atoms/TheButton.vue';
+import { useRouter } from 'vue-router';
 
 const showComments = ref(false); 
 const onShowCommentClick = () => { 
@@ -51,6 +52,15 @@ const props = defineProps({
   post: String,
   likes: Number
 });
+const router = useRouter();
+const navigateToUser = () => {
+  router.push({
+    name: "user",
+    params: {
+      userId: props.id
+    }
+  });
+}
 
 onMounted( () => {
   console.log(props.username);
