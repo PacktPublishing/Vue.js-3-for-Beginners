@@ -6,7 +6,7 @@
             <a href="#">
                 Welcome {{ username }}
             </a>
-            <IconSettings class="settings" />
+            <IconSettings class="icon" />
         </span>
     </header>
 </template>
@@ -38,10 +38,12 @@ header {
         margin-right:8px;
         font-weight: bolder;
     }
-    .settings {
+    .icon {
         width: 16px;
         height: 16px;
         fill: var(--color-input-mute);
+        margin-right: 5px;
+        cursor: pointer;
     }
 }
 
