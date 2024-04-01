@@ -1,5 +1,5 @@
 <template>
-    <form ref="createPostForm" @submit="createPost">
+    <form ref="createPostForm" @submit="createPostHandler">
         <h2>Create a Post</h2>
         <textarea
             rows="4"
@@ -17,8 +17,7 @@ import { onMounted, ref } from 'vue';
 
 const textareaRef = ref(null);
 const createPostForm = ref(null);
-
-const createPost = (event) => {
+const createPostHandler = (event) => {
     event.preventDefault();
     if(createPostForm.value.reportValidity()){
         //code to create post
@@ -28,8 +27,6 @@ const createPost = (event) => {
 onMounted( () => {
     textareaRef.value.focus();
 });
-
-
 </script>
 <style scoped>
 form {
