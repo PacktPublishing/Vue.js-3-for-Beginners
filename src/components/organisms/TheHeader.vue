@@ -7,6 +7,8 @@
                 Welcome {{ username }}
             </a>
             <IconSettings class="icon" />
+            <IconFullScreen class="icon" @click="sidebarStore.toggleSidebar" />
+            <p>Sidebar state: {{ sidebarStore.friendlyState }}</p>
         </span>
     </header>
 </template>
@@ -15,7 +17,10 @@
 import { ref } from 'vue';
 import TheLogo from '../atoms/TheLogo.vue';
 import IconSettings from '../icons/IconSettings.vue';
+import IconFullScreen from '../icons/IconFullScreen.vue';
+import { useSidebarStore } from '../../stores/sidebar';
 const username = ref("Zelig880");
+const sidebarStore = useSidebarStore();
 </script>
 
 <style lang="scss">

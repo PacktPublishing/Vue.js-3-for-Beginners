@@ -7,42 +7,30 @@
     :post="post.text"
     :likes="post.likes"
     :key="post.id"
-    @delete="onDelete(index)"
+    @delete="removePost(index)"
   ></SocialPost>
 </template>
   
 <script setup>
-  import { reactive, ref, watch } from 'vue';
+  import { watch } from 'vue';
   import SocialPost from '../molecules/SocialPost.vue'
+  import { usePostsStore } from '../../stores/posts';
+  import { storeToRefs } from 'pinia'
 
-  const onDelete = ( postIndex ) => {
-    posts.splice(postIndex, 1);
-  }
+  const postsStore = usePostsStore();
+  const { posts } = storeToRefs(postsStore);
+  const { fetchPosts, removePost } = postsStore;
   
-  const posts = reactive([]);
-  const page = ref(0);
   watch(
-    posts,
+    posts.value,
     (newValue) => {
       if( newValue.length <= 3 ) {
-        page.value++;
-        fetchPosts(page.value);
+
+      console.log("what is happening");
+        fetchPosts(true);
       }
     }
   )
-  const fetchPosts = (page = 0) => {
-    const baseUrl = "https://dummyapi.io/data/v1";
-    fetch(`${baseUrl}/post?limit=5&page=${page}`, {
-      "headers": {
-        "app-id": "657a3106698992f50c0a5885"
-      }
-    })
-      .then( response => response.json())
-      .then( result => {
-        posts.push(...result.data);
-      })
-  }
   fetchPosts();
-  
   </script>
   

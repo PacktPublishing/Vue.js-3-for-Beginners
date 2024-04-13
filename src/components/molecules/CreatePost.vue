@@ -1,5 +1,5 @@
 <template>
-    <form ref="createPostForm" @submit="createPostHandler">
+    <form v-show="postsStore.inProgress" ref="createPostForm" @submit="createPostHandler">
         <h2>Create a Post</h2>
         <textarea
             rows="4"
@@ -13,14 +13,17 @@
 </template>
 <script setup>
 import TheButton from '../atoms/TheButton.vue';
+import { usePostsStore } from '../../stores/posts';
 import { onMounted, ref } from 'vue';
 
+const postsStore = usePostsStore();
+const { addPost } = postsStore;
 const textareaRef = ref(null);
 const createPostForm = ref(null);
 const createPostHandler = (event) => {
     event.preventDefault();
     if(createPostForm.value.reportValidity()){
-        //code to create post
+        addPost(textareaRef.value.value);
     };
 }
 
