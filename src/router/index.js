@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import PrivacyView from '../views/PrivacyView.vue'
+import ContactView from '../views/ContactView.vue'
 import UserProfileView from '../views/UserProfileView.vue'
 import UserPostsView from '../views/UserPostsView.vue'
 
@@ -22,6 +23,11 @@ const router = createRouter({
       path: '/privacy',
       name: 'privacy',
       component: PrivacyView
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: ContactView
     },
     {
       path: "/user/:userId",
