@@ -1,12 +1,16 @@
 <template>
-    <form v-show="postsStore.inProgress" ref="createPostForm" @submit="createPostHandler">
+    <form v-show="postsStore.inProgress" @submit="createPostHandler">
         <h2>Create a Post</h2>
+        <label for="post">Enter your post body:</label>
         <textarea
             rows="4"
             cols="20"
             ref="textareaRef"
             required="true"
             minlength="10"
+            v-model="postText"
+            name="post"
+            id="post"
         ></textarea>
         <TheButton>Create Post</TheButton>
     </form>
@@ -15,16 +19,13 @@
 import TheButton from '../atoms/TheButton.vue';
 import { usePostsStore } from '../../stores/posts';
 import { onMounted, ref } from 'vue';
-
 const postsStore = usePostsStore();
 const { addPost } = postsStore;
 const textareaRef = ref(null);
-const createPostForm = ref(null);
+const postText = ref("");
 const createPostHandler = (event) => {
     event.preventDefault();
-    if(createPostForm.value.reportValidity()){
-        addPost(textareaRef.value.value);
-    };
+    addPost(postText.value);
 }
 
 onMounted( () => {
